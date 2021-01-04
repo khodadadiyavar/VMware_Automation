@@ -1,0 +1,29 @@
+---
+# use this template to shutdown and then delete a virtual machine
+- name: Shutdown and delete a VM
+  hosts: localhost
+  gather_facts: no
+  tasks:
+  - name: Shutdown the VM
+    vmware_guest:
+      hostname: "<Hostname of vCenter server>"
+      username: "<username>"
+      password: "<password>"
+      validate_certs: False
+      name: <name of the VM>
+      datacenter: "<name of the datacenter>"
+      folder: <folder of the VM>
+      state: poweredoff
+
+    register: deploy
+
+  - name: Delete From disk
+    vmware_guest:
+      hostname: "<Hostname of vCenter server>"
+      username: "<username>"
+      password: "<password>"
+      validate_certs: False
+      name: <name of the VM>
+      datacenter: "<name of the datacenter>"
+      folder: <folder of the VM>
+      state: absent      

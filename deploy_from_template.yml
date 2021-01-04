@@ -1,0 +1,31 @@
+---
+#use this play book to deploy a virtual machine from an already existing VM template.
+- name: Create a VM from a template
+  hosts: localhost
+  gather_facts: no
+  tasks:
+  - name: Clone the template
+    vmware_guest:
+      hostname: "<Hostname of vCenter server>"
+      username: "<username>"
+      password: "<password>"
+      validate_certs: False
+      name: <Select a nem for you VM>
+      template: <The name of the template>
+      datacenter: "<name of the datacenter>"
+      folder: <folder for the VM>
+      state: poweredon
+      disk:
+      - size_gb: 11
+        type: thin
+        datastore: <the name of the datastore>
+      networks:
+      - name: VM Network
+        ip: <IP address>
+        netmask: <Subnetmask>
+        gateway: <Default gateway>
+      wait_for_ip_address: True
+    register: deploy
+
+  - name: show deploy result
+    debug: msg={{ deploy }}    
