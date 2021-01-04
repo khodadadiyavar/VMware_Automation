@@ -1,0 +1,38 @@
+---
+- name: Create a VM from a template
+  hosts: localhost
+  gather_facts: no
+  tasks:
+
+  - name: Create a virtual machine on given ESXi hostname
+    vmware_guest:
+      hostname: "photon-machine"
+      username: "administrator@vsphere.local"
+      password: "1qaz@WSX"
+      folder: /DC-LAB/vm
+      name: Goodarz
+      datacenter: "DC-LAB"
+      state: poweredon
+      guest_id: centos64Guest
+      # This is hostname of particular ESXi server on which user wants VM to be deployed
+      esxi_hostname: "192.168.1.123"
+      disk:
+      - size_gb: 11
+        type: thin
+        datastore: datastore1
+      hardware:
+        memory_mb: 1024
+        num_cpus: 2
+        scsi: paravirtual
+      networks:
+      - name: VM Network
+        mac: aa:bb:dd:aa:00:14
+        ip: 192.168.1.128
+        netmask: 255.255.255.0
+        gateway: 192.168.1.1
+        device_type: vmxnet3
+      wait_for_ip_address: False
+      wait_for_ip_address_timeout: 600
+    delegate_to: localhost
+    register: deploy_vm
+
