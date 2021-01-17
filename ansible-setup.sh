@@ -2,7 +2,7 @@
 
 echo "###################Installing PIP###################"
 echo -e "\n"
-curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+curl -s https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 $(which python3) get-pip.py
 echo -e "\n"
 
