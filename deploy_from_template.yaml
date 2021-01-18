@@ -10,13 +10,13 @@
       username: "<username>"
       password: "<password>"
       validate_certs: False
-      name: <Select a nem for you VM>
+      name: <Select a name for you VM>
       template: <The name of the template>
       datacenter: "<name of the datacenter>"
       folder: <folder for the VM>
       state: poweredon
       disk:
-      - size_gb: 11
+      - size_gb: 10
         type: thin
         datastore: <the name of the datastore>
       networks:
